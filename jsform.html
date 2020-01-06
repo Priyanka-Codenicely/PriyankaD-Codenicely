@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function validateForm() {
+  var x = document.forms["myForm"]["Email"].value;
+  var y = document.forms["myForm"]["pass"].value;
+  if ((x == "")||(y == "")){
+    alert("Email ID or Password missing");
+    return false;
+  }
+}
+</script>
+</head>
+<body>
+
+<form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
+  Email id:<br> <input type="email" name="Email"><br>
+  Password:<br> <input type="password" name="pass"><br><br>
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

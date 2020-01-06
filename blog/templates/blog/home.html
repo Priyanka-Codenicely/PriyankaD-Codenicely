@@ -1,0 +1,21 @@
+{% extends "blog/signup.html" %}
+{% block script %}
+<script>function validateForm() {
+    var x = document.forms["myForm"]["Email"].value;
+    var y = document.forms["myForm"]["pass"].value;
+    if ((x == "")||(y == "")){
+      alert("Email ID or Password missing");
+      return false;
+    }
+  }
+</script>
+{% endblock %}
+
+{% block content %}
+<form name="myForm" action="/action_page/" onsubmit="return validateForm()" method="post">
+    Email id:<br> <input type="email" name="Email"><br>
+    Password:<br> <input type="password" name="pass"><br><br>
+    <input type="submit" value="Submit">
+</form>
+<a href="register/">Sign Up! Create a new account</a> 
+{% endblock %}
