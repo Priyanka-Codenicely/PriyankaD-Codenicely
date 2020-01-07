@@ -1,19 +1,110 @@
 {% extends "blog/base.html" %}
+{%  block  script %}
+{% load crispy_forms_tags %}
+<script>
+function blankFunction()                                    
+{ 
+    var first_name = document.forms["RegForm"]["first_name"];
+    var last_name = document.forms["RegForm"]["last_name"];   
+    var roll_no = document.forms["RegForm"]["roll_no"];                  
+    var email = document.forms["RegForm"]["email"];      
+    var password1 = document.forms["RegForm"]["password1"];  
+    var password2 = document.forms["RegForm"]["password2"];
+
+    if (first_name.value == "")                                  
+    { 
+        window.alert("Please enter your first name."); 
+        first_name.focus(); 
+        return false; 
+    } 
+   
+    if (roll_no.value == "")                               
+    { 
+        window.alert("Please enter your roll no."); 
+        roll_no.focus(); 
+        return false; 
+    } 
+       
+    if (email.value == "")                                   
+    { 
+        window.alert("Please enter a valid e-mail address."); 
+        email.focus(); 
+        return false; 
+    } 
+   
+    // if (phone.value == "")                           
+    // { 
+    //     window.alert("Please enter your telephone number."); 
+    //     phone.focus(); 
+    //     return false; 
+    // } 
+
+    if (password1.value == "")                        
+    { 
+        window.alert("Please enter your password"); 
+        password1.focus(); 
+        return false; 
+    }
+
+    if (password2.value == '') 
+    { 
+        window.alert("Please enter your confirmation password"); 
+        password2.focus(); 
+        return false; 
+    }
+
+    if (password2.value != password1.value) 
+    { 
+        window.alert("Your confirmation password doesn't match"); 
+        password2.focus(); 
+        return false; 
+    }
+    return true; 
+
+// $(document).ready(function(){
+//   $("button").click(function(){
+//     $.ajax({url: "/formSubmit/", success: function(result){
+//       $("#div1").html(result);
+//     }});
+//   });
+// });
+
+}
+
+
+</script>
+{% endblock %} 
+
 
 {% block content %}
-<br><br><h2>Registeration Page:</h2><br>
-    <form action="/formSubmit/" method="post">
-        {% csrf_token %}
-    <input type = "text" name="first_name" placeholder="First Name"><br>
-    <input type = "text" name="last_name" placeholder="Last Name"><br>
-    <input type = "number" name="roll_no" placeholder="Roll Number"><br>
-    <input type = "date" name="dob" placeholder="Date of Birth"><br>
-    <input type = "text" name="user_name" placeholder="User Name"><br>
-    <input type = "email" name="email" placeholder="Email"><br>
-    <input type = "password" name="password1" placeholder="Password"><br>
-    <input type = "password" name="password2" placeholder="Confirm Password"><br>
-    <input type="Submit" value="Sign Up">
-    </form>
+<div id="div1" align="center" style=padding:70px' >
+<br><br><h2>Registeration Page:</h2><br><br>
 
-    <a href="home/">Already have an account?</a>
+    <form name="RegForm" method="post" action="/formSubmit/" style='padding-left: 200px;' >
+        {% csrf_token %}
+        {{ form|crispy }}
+    <div align="left">
+    First Name:
+    <input type = "text" name="first_name" placeholder="First Name">
+    Last Name:
+    <input type = "text" name="last_name" placeholder="Last Name"><br><br>
+    Roll Number:
+    <input type = "text" name="roll_no" placeholder="Roll Number">
+    Date of Birth:
+    <input type="date" id="dob" placeholder="Date of Birth" ><br><br>
+    User Name:
+    <input type = "text" name="user_name" placeholder="User Name"><br><br>
+    Email:
+    <input type = "email" name="email" placeholder="Email"><br><br>
+    Password:
+    <input type = "password" name="password1" placeholder="Password"><br><br>
+    Confirm Password:
+    <input type = "password" name="password2" placeholder="Confirm Password"><br><br>
+    
+</div>
+<input type="Submit" value="Sign Up" style='background-color:rgb(13, 140, 214);color:white'>
+
+</form>
+<a href="home/">Already have an account?</a><br><br>    
+</div>
 {% endblock %} 

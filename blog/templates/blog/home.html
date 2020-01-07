@@ -12,10 +12,13 @@
 {% endblock %}
 
 {% block content %}
+<div align="center"  style='background-color: rgb(194, 221, 224);'>
+<h1>Login</h1>
 <form name="myForm" action="/action_page/" onsubmit="return validateForm()" method="post">
     Email id:<br> <input type="email" name="Email"><br>
     Password:<br> <input type="password" name="pass"><br><br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" >
 </form>
-<a href="register/">Sign Up! Create a new account</a> 
+<a href="register">Sign Up! Create a new account</a> 
+</div>
 {% endblock %}
