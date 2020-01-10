@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-'''class DateForm(forms.Form):
+class DateForm(forms.Form):
     date = forms.DateTimeField(
         input_formats=['%d/%m/%Y %H:%M'],
         widget=forms.DateTimeInput(attrs={
@@ -10,11 +10,22 @@ from django.contrib.auth.models import User
         })
     )
 
-class UserForm(forms.ModelForm):
-    password1 = forms.CharField(widget=forms.PasswordInput)
-    password2 = forms.CharField(widget=forms.PasswordInput)
-
- class Meta:
+'''class UserForm(forms.ModelForm):
+    class Meta:
         model = User
-        fields = ('first_name','last_name','roll_no','dob','user_name', 'email', 'password1')
-        '''
+        fields = ('email',)
+
+    def clean_email(self):
+        # Get the email
+        email = self.cleaned_data.get('email')
+
+        # Check to see if any users already exist with this email as a username.
+        try:
+            match = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # Unable to find a user, this is fine
+            return email
+
+        # A user was found with this as a username, raise an error.
+        raise forms.ValidationError('This email address is already in use.')
+'''

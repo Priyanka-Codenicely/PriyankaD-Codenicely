@@ -7,5 +7,6 @@ urlpatterns = [
     path("home/register",views.register, name = 'register'),
     path("home/",views.home, name="blog-home"),    
     path("home/home/",views.home, name="blog-home"), 
-    path('formSubmit/', views.formSubmit,name = 'formSubmit')
+    path('formSubmit/', views.formSubmit,name = 'formSubmit'),
+    path('home/loginForm/', views.loginForm, name='loginForm'),
 ]

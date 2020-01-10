@@ -7,7 +7,7 @@ class UserInfo(models.Model):
     first_name=models.CharField(max_length=100,blank=False)
     last_name=models.CharField(max_length=100, blank=False)
     roll_no=models.CharField(max_length=100, blank=False,primary_key=True)
-    dob=models.DateTimeField(default=timezone.now, editable=True)
+    dob=models.DateTimeField(editable=True)
     user_name=models.CharField(max_length=100,blank=True, null=True)
     email=models.EmailField(default=' ')
     password1=models.CharField(max_length=100, blank=False)
