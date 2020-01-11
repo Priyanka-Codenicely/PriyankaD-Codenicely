@@ -1,0 +1,9 @@
+{% extends "blog/base.html" %}
+{%  block  content %}
+<form action="blank/"></form>
+{% csrf_token %}
+Enter the OTP sent to your rregistered E-mail address:<br> <input type="password" name="password"><br><br><br>
+<p style="font-size:10px;color:rgb(177, 8, 8)"> {{err_msg5}}</p>
+
+
+{% endblock %}

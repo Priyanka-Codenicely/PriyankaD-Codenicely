@@ -13,6 +13,9 @@ def home(request):
 def register(request):
     return render(request,'blog/signup.html')
 
+def blank(request):
+    return render(request,'blog/blank.html')
+
 def login(request):
     return redirect('blog/home.html')
 
@@ -39,7 +42,7 @@ def formSubmit(request):
         else:
             user_info=UserInfo(first_name=first_name,last_name=last_name,roll_no=roll_no,user_name=user_name,email=email,password1=password1)
             user_info.save()
-            return render(request,'blog/blank.html')
+            return render(request,'blog/otp.html')
 
 def loginForm(request):
     print('hello mate')

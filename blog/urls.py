@@ -9,4 +9,16 @@ urlpatterns = [
     path("home/home/",views.home, name="blog-home"), 
     path('formSubmit/', views.formSubmit,name = 'formSubmit'),
     path('home/loginForm/', views.loginForm, name='loginForm'),
+    path('blank/', views.blank,"blog-blank"),
 ]
+"""
+CLASS OTPAdmin(OTPAdminSite):
+    pass
+
+from django.contrib.auth.models import User
+from django_otp.plugins.otp_totp.models import TOTPDevice
+
+admin_site= OTPAdmin(name='OTPAdmin')
+admin_site.register(User)
+admin_site.register(TOTPDevice)
+"""
