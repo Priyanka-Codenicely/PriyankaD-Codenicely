@@ -1,0 +1,33 @@
+{% extends "blog/signup.html" %}
+{% block script %}
+<script>function validateForm() {
+    var x = document.forms["myForm"]["Email"].value;
+    var y = document.forms["myForm"]["password"].value;
+    if ((x == "") || (y == "")) {
+      alert("Email ID or Password missing");
+      return false;
+    }
+  }
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div align="center" class='column-layout' style='background-color: white;padding:50px 100px 75px 100px;margin-top: 60px;'>
+  <h1>Login</h1>
+  <div><br>
+    <form name="myForm" action='loginForm/'  onsubmit="return validateForm()" method="post">
+      {% csrf_token %}
+      Email id:<br> <input type="email" name="Email"><br>
+      <br>
+      Password:<br> <input type="password" name="password"><br><br><br>
+      <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg3}}</p>
+      
+      <input type="submit" class="button" value="Submit" style="border: none;color: white;
+    padding: 7px;text-align: center; text-decoration: none; display: inline-block;font-size: 16px; margin: 4px 2px;
+    cursor: pointer;width: 135px;height: 40px ;text-align: center;background-color:tomato;">
+    </form><br>
+  </div>
+  <a href='/'>Sign Up! Create a new account</a>
+</div>
+{% endblock %}

@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'api',
     'crispy_forms',
 
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_hotp',
+    'django_otp.plugins.otp_static',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
    ]
@@ -123,6 +128,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+LOGIN_URL = 'two_factor:login'
+
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',
@@ -131,6 +138,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER='priyankadodeja18@gmail.com'
+EMAIL_HOST_PASSWORD='priyanka18'
+EMAIL_PORT = 587
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

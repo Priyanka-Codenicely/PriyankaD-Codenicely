@@ -1,9 +1,41 @@
-{% extends "blog/base.html" %}
+{% extends "blog/signup.html" %}
+{% block script %}
+<script>
+function limit(element)
+{
+    var max_chars = 4;
+
+    if(element.value.length > max_chars) {
+        element.value = element.value.substr(0, max_chars);
+    }
+
+    
+}
+
+function isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if ((charCode < 48 || charCode > 57))
+        return false;
+
+    return true;
+    }
+
+</script>
+{% endblock %}
+
 {%  block  content %}
-<form action="blank/"></form>
-{% csrf_token %}
-Enter the OTP sent to your rregistered E-mail address:<br> <input type="password" name="password"><br><br><br>
-<p style="font-size:10px;color:rgb(177, 8, 8)"> {{err_msg5}}</p>
+<div align="center" class='column-layout'
+    style='background-color: white;padding:50px 100px 75px 100px;margin-top: 60px;'>
 
+    <form name='OTPpage' method="post" action="SubmitOTP/">
+        {% csrf_token %}
+        Enter the OTP sent to your registered E-mail address:<br> <br> 
+        <input type="text" name="otp" onkeypress="return isNumberKey(event)" oninput="limit(this);  "><br><br>
+        <input type="email" style="font-size:13px;color:rgb(177, 8, 8)" name = 'email' value="{{email}}" readonly>  </input>
 
+        <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg5}} </p>
+        <input type="submit" class='button' value="Verify OTP">
+        <input type="submit" class='button' value="Resend OTP" formaction = "OTPresend/">
+    </form>
+</div>
 {% endblock %}

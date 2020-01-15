@@ -12,7 +12,7 @@
         return false;
 
     return true;
-}
+    }
 
 
     function blankFunction() {
@@ -118,7 +118,7 @@
         <br>
         <div class='form-row'>
             Date of Birth*:
-            <input style="float:right;margin-right: 160px;" style='text-align: right;' type="date" id="dob"
+            <input style="float:right;margin-right: 160px;" style='text-align: right;' type="date" name="dob" id="dob"
                 placeholder="Date of Birth">
         </div><br>
         <div class='form-row'>
@@ -148,8 +148,8 @@
         </div>
     </form>
     <div align="center">
-        <a href="home/">Already have an account?</a>
+        <a href='login/' >Already have an account?</a>
     </div>
+    {% endblock %}
 </div>
 </div>
-{% endblock %}
