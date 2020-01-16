@@ -31,7 +31,7 @@ function isNumberKey(evt) {
         {% csrf_token %}
         Enter the OTP sent to your registered E-mail address:<br> <br> 
         <input type="text" name="otp" onkeypress="return isNumberKey(event)" oninput="limit(this);  "><br><br>
-        <input type="email" style="font-size:13px;color:rgb(177, 8, 8)" name = 'email' value="{{email}}" readonly>  </input>
+        <input type="hidden" style="font-size:13px;color:rgb(177, 8, 8)" name = 'email' value="{{email}}" readonly>  </input>
 
         <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg5}} </p>
         <input type="submit" class='button' value="Verify OTP">

@@ -129,7 +129,8 @@ def SubmitOTP(request):
             status = UserInfo.objects.get(email=email,otp=otp)
             status.user_status_verified = True
             status.save()
-            return render(request,'blog/home.html')
+            context['name']=status.user_name
+            return render(request,'blog/home.html',context)
         else:
             status = UserInfo.objects.get(email=email)
             status.user_status_verified = False
@@ -137,3 +138,57 @@ def SubmitOTP(request):
             context['email']=email
             context['err_msg5']="The OTP you entered is incorrect."
             return render(request, 'blog/otp.html', context)
+
+
+def forgotPasswordPage(request):
+    return render(request, 'blog/forgot_password.html')
+
+
+def forgotPassword(request):
+    context = {}
+    if request.method=='POST':
+        email = request.POST.get('email')
+        print(email)
+        if UserInfo.objects.filter(email=email).exists():
+            print('Its here')
+            user = UserInfo.objects.get(email=email)
+            newotp = generateOTP()
+            user.otp = newotp
+            print(user.otp)
+            user.save()
+            user.user_status_verified=False
+            user.save()
+            subject='OTP for resetting password'
+            message= '%s is your New OTP' %newotp
+            from_email= settings.EMAIL_HOST_USER
+            to_list=[user.email]
+            print("mail",to_list)
+            send_mail(subject,message,from_email,to_list)
+            context['email1']=user.email
+            print('email', context['email1'])
+            return render(request,'blog/passwordReset.html',context)
+        else:
+            context['err_msg4']="The Email id you entered doesn't exist.Please Sign Up "
+            return render(request,'blog/forgot_password.html',context)
+
+
+
+def PasswordReset(request):
+    context = {}
+    if request.method=='POST':
+        email = request.POST.get('email1')
+        print(email)
+        newotp = request.POST.get("otp")
+        print(newotp)
+        password1 = request.POST.get('password1')
+        if UserInfo.objects.filter(email=email,otp=newotp).exists():
+            print('this exists')
+            user = UserInfo.objects.get(email=email)
+            user.user_status_verified= True
+            user.save()
+            user.password1 = password1
+            user.save()
+            return render(request,'blog/home.html' )
+        else:
+            context['password_msg']="The OTP you entered didn't match"
+            return render(request, 'blog/passwordReset.html',context)
