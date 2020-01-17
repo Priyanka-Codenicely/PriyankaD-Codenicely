@@ -52,6 +52,7 @@ def formSubmit(request):
         roll_no=request.POST["roll_no"]       
         user_name=request.POST["user_name"]
         email=request.POST["email"]
+        email = email.lower()
         password1=request.POST["password1"]
         if UserInfo.objects.filter(roll_no=roll_no).exists():
             context['err_msg']='The Roll Number you entered already exists.'
@@ -84,24 +85,30 @@ def loginForm(request):
     if request.method == 'POST':
         print("i'm here")
         email=request.POST.get("Email")
+        email = email.lower()
         print('email', email)
         password=request.POST.get("password")
         print('password',password)
         if UserInfo.objects.filter(email=email).exists():
             if UserInfo.objects.filter(email=email,password1=password).exists():
-                return render(request,'blog/home.html')
+                print('it')
+                user = UserInfo.objects.get(email=email,password1=password)
+                context['name'] = user.user_name
+                return render(request,'blog/home.html', context)
             else:
                 context['err_msg3']="The Password you entered doesn't match with the Email "
                 return render(request, 'blog/login.html',context)
         else:
             context['err_msg4']="The Email id you entered doesn't exist.Please Sign Up "
             return render(request,'blog/signup.html',context)
-
+    else:
+        return render(request,'blog/home.html')
 
 def OTPresend(request):
     context = {}
     if request.method=='POST':
         email = request.POST.get('email')
+        email = email.lower()
         print(email)
         otp = generateOTP()
         subject='OTP Resent'
@@ -123,6 +130,7 @@ def SubmitOTP(request):
         otp = request.POST.get("otp")
         print(otp)
         email = request.POST.get('email')
+        email = email.lower()
         print(email)
         if UserInfo.objects.filter(email=email,otp=otp).exists():
             print('this exists')
@@ -148,6 +156,7 @@ def forgotPassword(request):
     context = {}
     if request.method=='POST':
         email = request.POST.get('email')
+        email = email.lower()
         print(email)
         if UserInfo.objects.filter(email=email).exists():
             print('Its here')
@@ -177,6 +186,7 @@ def PasswordReset(request):
     context = {}
     if request.method=='POST':
         email = request.POST.get('email1')
+        email = email.lower()
         print(email)
         newotp = request.POST.get("otp")
         print(newotp)
@@ -188,7 +198,9 @@ def PasswordReset(request):
             user.save()
             user.password1 = password1
             user.save()
-            return render(request,'blog/home.html' )
+            context['name'] = user.user_name
+            return render(request,'blog/home.html',context )
         else:
+            context['email1']=email
             context['password_msg']="The OTP you entered didn't match"
             return render(request, 'blog/passwordReset.html',context)

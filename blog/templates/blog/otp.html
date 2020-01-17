@@ -1,5 +1,22 @@
 {% extends "blog/signup.html" %}
 {% block script %}
+<style>
+.button {
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        width: 150px;
+        height: 50px;
+        background-color: tomato;
+}
+
+</style>
 <script>
 function limit(element)
 {
@@ -27,7 +44,7 @@ function isNumberKey(evt) {
 <div align="center" class='column-layout'
     style='background-color: white;padding:50px 100px 75px 100px;margin-top: 60px;'>
 
-    <form name='OTPpage' method="post" action="SubmitOTP/">
+    <form name='OTPpage' method="post" action='{% url "blog-SubmitOTP" %}'>
         {% csrf_token %}
         Enter the OTP sent to your registered E-mail address:<br> <br> 
         <input type="text" name="otp" onkeypress="return isNumberKey(event)" oninput="limit(this);  "><br><br>
@@ -35,7 +52,7 @@ function isNumberKey(evt) {
 
         <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg5}} </p>
         <input type="submit" class='button' value="Verify OTP">
-        <input type="submit" class='button' value="Resend OTP" formaction = "OTPresend/">
+        <input type="submit" class='button' value="Resend OTP" formaction = '{% url "blog-OTPresend" %}'>
     </form>
 </div>
 {% endblock %}
