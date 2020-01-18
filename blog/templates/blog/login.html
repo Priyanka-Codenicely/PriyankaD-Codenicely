@@ -13,8 +13,8 @@
 
 {% block content %}
 
-<div align="center" class='column-layout' style='background-color: white;padding:50px 100px 75px 100px;margin-top: 60px;'>
-  <h1>Login</h1>
+<div align="center" class='column-layout' style='background-color: white;padding:50px 200px 75px 200px;margin-top: 60px;'>
+  <h2>Login</h2>
   <div><br>
     <form name="myForm" action='{% url "blog-loginForm" %}'  onsubmit="return validateForm()" method="post">
       {% csrf_token %}

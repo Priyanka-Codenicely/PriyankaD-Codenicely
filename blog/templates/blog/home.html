@@ -8,34 +8,16 @@
     <!-- Compiled and minified JavaScript for Materialize CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-<style>
-    .button {
-        border: none;
-        color: white;
-        padding: 7px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        width: 100px;
-        height: 35px;
-        background-color: tomato;
-    }
-</style>
+
 {% endblock %}
 {%  block  content %}
-<nav style="background-color: rgb(1, 76, 146);display: inline-flex;padding:50px;margin-top: 60px;">
-    <div>
+<body style="display: inline;padding:10px;">
+     
+    <div class = .topnav>
         <p style="color:white;margin:5px;">Hello {{name}}, Welcome! </p>
+        <input align="right" type="submit" value="Logout">
     </div>
-    <div align="right">
-        <input type="submit" value="Logout">
-    </div>
-</nav>
 
-<body>
     <div align="center" class='column-layout' style='background-color: white;padding:50px;margin-top: 60px;'>
         <form>
 

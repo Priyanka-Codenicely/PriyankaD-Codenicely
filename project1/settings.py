@@ -25,7 +25,7 @@ SECRET_KEY = 'm6y+lg#gs%92&t@dddm464!-a$v&kgme@ek6+p75k+akb_7d++'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'materialize',
     'api',
     'crispy_forms',
-
+    'responsive',
+    
     'django_otp',
     'django_otp.plugins.otp_totp',
     'django_otp.plugins.otp_hotp',
@@ -127,7 +128,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+
 
 LOGIN_URL = 'two_factor:login'
 
@@ -146,3 +147,9 @@ EMAIL_HOST_PASSWORD='priyanka18'
 EMAIL_PORT = 587
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]

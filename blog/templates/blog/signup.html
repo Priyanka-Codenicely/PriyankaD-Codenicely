@@ -1,6 +1,8 @@
+
 {% extends "blog/base.html" %}
 {%  block  script %}
 {% load crispy_forms_tags %}
+
 <script>
     window.onload=function setDate(){
         document.getElementById("dob").valueAsDate = new Date();
@@ -64,7 +66,7 @@
         }
 
         if (password2.value != password1.value) {
-            window.alert("Your confirmation password doesn't match");
+            window.alert("Your password doesn't match");
             password2.focus();
             return false;
         }
@@ -94,62 +96,60 @@
 {% endblock %}
 
 {% block content %}
-<div style="background-color: white;padding:50px">
+<div style="background-color: white;">
     <br><br>
-    <h2 style="font-size: 40px;" align="center">Registration Page</h2><br><br>
+    <h2 align="center">Registration Page</h2><br><br>
 
-    <form name="RegForm" method="post" action='{% url "blog-formSubmit" %}' style="margin-left: 160px;">
+    <form name="RegForm" method="post" action='{% url "blog-formSubmit" %}'>
         {% csrf_token %}
         <div class='form-row'>
-            First Name<font color="red">*</font>:
-            <input style="float:right;margin-right: 160px;" type="text" name="first_name" placeholder="First Name">
-        </div><br>
+            <label for="first_name">First Name<font color="red">*</font>:</label> 
+            
+            <input type="text" name="first_name" placeholder="First Name">
+        </div>
         <div class='form-row'>
-            Last Name:
-            <input style="float:right;margin-right: 160px;" type="text" name="last_name"
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name"
                 placeholder="Last Name">
         </div>
-        <br>
         <div class='form-row'>
-            Roll Number<font color="red">*</font>:
-            <input style="float:right;margin-right: 160px;" type="number" name="roll_no" placeholder="Roll Number" onkeypress="return isNumberKey(event)"><br>
+            <label for="last_name">Roll Number<font color="red">*</font>:</label>
+            <input type="number" style='text-align: right;' name="roll_no" placeholder="Roll Number" onkeypress="return isNumberKey(event)"><br>
             <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg}}</p>
         </div>
-        <br>
         <div class='form-row'>
-            Date of Birth<font color="red">*</font>:
-            <input style="float:right;margin-right: 160px;" style='text-align: right;' type="date" name="dob" id="dob"
+            <label for="dob">Date of Birth<font color="red" required>*</font>:</label>
+            <input style='text-align: right;' type="date" name="dob" id="dob"
                 placeholder="Date of Birth">
-        </div><br>
+        </div>
         <div class='form-row'>
-            User Name<font color="red">*</font>:
-            <input style="float:right;margin-right: 160px;" type="text" name="user_name" placeholder="User Name">
-        </div><br>
+            <label for="user_name">User Name<font color="red">*</font>:</label>
+            <input type="text" name="user_name" placeholder="User Name">
+        </div>
         <div class='form-row'>
-            Email<font color="red">*</font>:
-            <input style="float:right;margin-right: 160px;" type="email" name="email" placeholder="Email">
+            <label for="email">Email<font color="red">*</font>:</label>
+            <input type="email" name="email" placeholder="Email">
             <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg2}}</p>
-        </div><br>
+        </div>
         <div class='form-row'>
-            Password<font color="red">*</font>:
-            <input style="float:right;margin-right: 160px;" type="password" name="password1" placeholder="Password">
-        </div><br>
+            <label for="password1">Password<font color="red">*</font>:</label>
+            <input type="password" name="password1" placeholder="Password">
+        </div>
         <div class='form-row'>
-            Confirm Password<font color="red">*</font>:
-            <input style="float:right;margin-right: 160px;" type="password" name="password2"
+            <label for="password2">Confirm Password<font color="red">*</font>:</label>
+            <input type="password" name="password2"
                 placeholder="Confirm Password">
-        </div><br>
+        </div>
         <div>
             <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg4}}</p>
-            <br>
-            <div align="center" style="margin-right:170px">
+            <div align="center">
                 <input type="submit" class='button' value="Sign Up" onclick="return blankFunction()">
-            </div><br>
+            </div>
         </div>
     </form>
-    <div align="center">
+    <div style="padding-bottom:30px" align="center">
         <a href='{% url "blog-login" %}' >Already have an account?</a>
-    </div>
+    </div style="padding-bottom:30px">
     {% endblock %}
 </div>
 </div>
