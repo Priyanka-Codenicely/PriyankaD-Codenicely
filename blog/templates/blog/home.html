@@ -1,29 +1,35 @@
 {% extends "blog/signup.html" %}
 {% block script %}
 {% load static %}
-    <!-- Prism CSS -->
-    <link href="{% static "tinymce/css/prism.css" %}" rel="stylesheet">
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript for Materialize CSS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- Prism CSS -->
+<link href="{% static "tinymce/css/prism.css" %}" rel="stylesheet">
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!-- Compiled and minified JavaScript for Materialize CSS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 
 {% endblock %}
 {%  block  content %}
+
 <body style="display: inline;padding:10px;">
-     
-    <div class = .topnav>
-        <p style="color:white;margin:5px;">Hello {{name}}, Welcome! </p>
-        <input align="right" type="submit" value="Logout">
-    </div>
+    <nav>
+        <div class="nav-wrapper" style="background-color: #323643;">
+          <a href="#" class="brand-logo" style="margin-left:5px ;">Icon</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>Hello {{name}}, Welcome!</li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">Logout</a></li>
+          </ul>
+        </div>
+      </nav>
 
     <div align="center" class='column-layout' style='background-color: white;padding:50px;margin-top: 60px;'>
         <form>
 
             <br><br>
             <div>
-                <input class="button" type="submit" value="Add Note">
+                <a class="btn-floating btn-large cyan"><i class="material-icons">edit</i></a>
             </div>
         </form>
     </div>

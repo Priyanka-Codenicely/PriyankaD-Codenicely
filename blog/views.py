@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from django.conf import settings
 import math, random 
+import datetime
 
 '''
 from .form import UserForm
@@ -48,6 +49,8 @@ def formSubmit(request):
         first_name=request.POST["first_name"]
         last_name=request.POST["last_name"]
         dob=request.POST.get("dob")
+        """if dob == "dd/mm/yyyy":
+            dob = datetime.datetime.now()"""
         print(dob)
         roll_no=request.POST["roll_no"]       
         user_name=request.POST["user_name"]
