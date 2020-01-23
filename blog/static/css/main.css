@@ -6,15 +6,31 @@ h2{
     font-size: 40px;
 }
 
-.container{
+/*.container{
     background-color: white;
     margin: 75px;
 
+}
+*/
+
+body{
+        background-color:teal;
+
 
 }
+.form-div{
+    background-color:teal;
+    padding: 5% 28%;
+ }
 
+form{
+    background-color: white;
+    padding:5% 18% ;
+}
 div{
     background-color: white;
+    z-index: depth;
+
 }
 
 .form-row{
@@ -22,7 +38,6 @@ div{
     flex-direction: row;
     background-color: white;
     padding: 0px 100px 0px 0px;
-    
 }
 
 .button {
@@ -39,7 +54,12 @@ div{
     height: 35px;
     background-color: tomato;
 }
+.column-layout{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
 
+}
 .topnav {
     overflow: hidden;
     background-color: rgb(1, 76, 146);
@@ -51,9 +71,11 @@ div{
     text-align: left;
 }
 
+label{
+    font-size: 16px;
+}
 
-
-.form-row label{
+/*.form-row label{
     padding-right: 200px;
     flex: 1;
     padding-left: 100px;
@@ -65,13 +87,9 @@ div{
     float:right;
     padding-left: 100px;
 }
+*/
 
-.column-layout{
-    max-width: 1300px;
-    margin:  auto;
-    padding: 220px 40px;
-    display: flex;
-    flex-direction: column;
-
+.input-center{
+    text-align: center;
 }
 

@@ -1,19 +1,18 @@
-
 {% extends "blog/base.html" %}
 {%  block  script %}
 {% load crispy_forms_tags %}
 
 <script>
-    window.onload=function setDate(){
+    window.onload = function setDate() {
         document.getElementById("dob").valueAsDate = new Date();
     };
 
     function isNumberKey(evt) {
-    var charCode = (evt.which) ? evt.which : event.keyCode;
-    if ((charCode < 48 || charCode > 57))
-        return false;
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        if ((charCode < 48 || charCode > 57))
+            return false;
 
-    return true;
+        return true;
     }
 
 
@@ -22,7 +21,7 @@
         /*var x = document.getElementsByName("password1")[0].value;
             alert(x)'''
       */
-      
+
 
 
         var first_name = document.forms["RegForm"]["first_name"];
@@ -96,60 +95,60 @@
 {% endblock %}
 
 {% block content %}
-<div style="background-color: white;">
-    <br><br>
-    <h2 align="center">Registration Page</h2><br><br>
-
+<div class="form-div">
+    <div class="z-depth-3">
     <form name="RegForm" method="post" action='{% url "blog-formSubmit" %}'>
+        <h2 align="center">Registration Page</h2>
+        <br>
         {% csrf_token %}
-        <div class='form-row'>
-            <label for="first_name">First Name<font color="red">*</font>:</label> 
-            
-            <input type="text" name="first_name" placeholder="First Name">
+        <div class='row'>
+                <label for="first_name" class="col s6">First Name<font color="red">*</font>:</label>
+
+                <input class="col s6" type="text" name="first_name" placeholder="First Name">
         </div>
-        <div class='form-row'>
-            <label for="last_name">Last Name:</label>
-            <input type="text" name="last_name"
-                placeholder="Last Name">
+        <div class='row'>
+            <label for="last_name" class="col s6">Last Name:</label>
+            <input class="col s6" type="text" name="last_name" placeholder="Last Name">
         </div>
-        <div class='form-row'>
-            <label for="last_name">Roll Number<font color="red">*</font>:</label>
-            <input type="number" style='text-align: right;' name="roll_no" placeholder="Roll Number" onkeypress="return isNumberKey(event)"><br>
+        <div class='row'>
+            <label for="last_name" class="col s6">Roll Number<font color="red">*</font>:</label>
+            <input class="col s6 text-align:right" type="number" name="roll_no" placeholder="Roll Number"
+                onkeypress="return isNumberKey(event)"><br>
             <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg}}</p>
         </div>
-        <div class='form-row'>
-            <label for="dob">Date of Birth<font color="red" >*</font>:</label>
-            <input style='text-align: right;' type="date" name="dob" id="dob"
-                placeholder="Date of Birth" required>
+        <div class='row'>
+            <label for="dob" class="col s6">Date of Birth<font color="red">*</font>:</label>
+            <input class="col s6" type="date" name="dob" id="dob" placeholder="Date of Birth"
+                required>
         </div>
-        <div class='form-row'>
-            <label for="user_name">User Name<font color="red">*</font>:</label>
-            <input type="text" name="user_name" placeholder="User Name">
+        <div class='row'>
+            <label for="user_name" class="col s6">User Name<font color="red">*</font>:</label>
+            <input class="col s6" type="text" name="user_name" placeholder="User Name">
         </div>
-        <div class='form-row'>
-            <label for="email">Email<font color="red">*</font>:</label>
-            <input type="email" name="email" placeholder="Email">
+        <div class='row'>
+            <label for="email" class="col s6">Email<font color="red">*</font>:</label>
+            <input class="col s6" type="email" name="email" placeholder="Email">
             <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg2}}</p>
         </div>
-        <div class='form-row'>
-            <label for="password1">Password<font color="red">*</font>:</label>
-            <input type="password" name="password1" placeholder="Password">
+        <div class='row'>
+            <label for="password1" class="col s6">Password<font color="red">*</font>:</label>
+            <input class="col s6" type="password" name="password1" placeholder="Password">
         </div>
-        <div class='form-row'>
-            <label for="password2">Confirm Password<font color="red">*</font>:</label>
-            <input type="password" name="password2"
-                placeholder="Confirm Password">
+        <div class='row'>
+            <label for="password2" class="col s6">Confirm Password<font color="red">*</font>:</label>
+            <input class="col s6" type="password" name="password2" placeholder="Confirm Password">
         </div>
         <div>
             <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg4}}</p>
             <div align="center">
-                <input type="submit" class='button' value="Sign Up" onclick="return blankFunction()">
+                <input type="submit" class='btn red' value="Sign Up" onclick="return blankFunction()">
             </div>
         </div>
     </form>
     <div style="padding-bottom:30px" align="center">
-        <a href='{% url "blog-login" %}' >Already have an account?</a>
+        <a href='{% url "blog-login" %}'>Already have an account?</a>
     </div style="padding-bottom:30px">
+</div>
     {% endblock %}
 </div>
 </div>

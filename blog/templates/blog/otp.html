@@ -41,14 +41,13 @@ function isNumberKey(evt) {
 {% endblock %}
 
 {%  block  content %}
-<div align="center" class='column-layout'
-    style='background-color: white;padding:50px 100px 75px 100px;margin-top: 60px;'>
-
+<div align="center" class='form-div'>
+    <div class="z-depth-3">
     <form name='OTPpage' method="post" action='{% url "blog-SubmitOTP" %}'>
         {% csrf_token %}
-        Enter the OTP sent to your registered E-mail address:<br> <br> 
-        <input type="text" name="otp" onkeypress="return isNumberKey(event)" oninput="limit(this);  "><br><br>
-        <input type="hidden" style="font-size:13px;color:rgb(177, 8, 8)" name = 'email' value="{{email}}" readonly>  </input>
+        <h6>Enter the OTP sent to your registered E-mail address:</h6><br> <br> 
+        <input class="input-center" type="text" name="otp" onkeypress="return isNumberKey(event)" oninput="limit(this);  "><br><br>
+        <input class="input-center" type="hidden" style="font-size:13px;color:rgb(177, 8, 8)" name = 'email' value="{{email}}" readonly>  </input>
 
         <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg5}} </p>
         <input type="submit" class='button' value="Verify OTP">
@@ -56,3 +55,5 @@ function isNumberKey(evt) {
     </form>
 </div>
 {% endblock %}
+</div>
+</div>
