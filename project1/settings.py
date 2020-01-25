@@ -40,14 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     # 'materialize',
-    'api',
-    'crispy_forms',
-    'responsive',
+    #'api',
+    #'crispy_forms',
+    # 'responsive',
     
-    'django_otp',
-    'django_otp.plugins.otp_totp',
-    'django_otp.plugins.otp_hotp',
-    'django_otp.plugins.otp_static',
+     'django_otp',
+     'django_otp.plugins.otp_totp',
+     'django_otp.plugins.otp_hotp',
+     'django_otp.plugins.otp_static',
 ]
 
 MIDDLEWARE = [
