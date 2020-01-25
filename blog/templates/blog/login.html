@@ -19,11 +19,11 @@
       <div class="row">
         {% csrf_token %}
         <div>
-          Email id:
-          <input class="input-center" type="email" name="Email"><br>
+          <label for="Email">Email id:</label>
+          <input class="input-center" type="email" name="Email" id="Email" class="validate"><br>
           <br>
-          Password:
-          <input class="input-center" type="password" name="password"><br>
+          <label for="password">Password:</label>
+          <input class="input-center" type="password" name="password" id="password" class="validate"><br>
           <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg3}}</p>
           <a href='forgotPasswordPage/'>Forgot Password?</a><br><br><br>
           <input type="submit" class="btn red" value="Submit">
