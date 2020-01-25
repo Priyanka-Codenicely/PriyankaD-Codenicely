@@ -106,40 +106,41 @@
             {% csrf_token %}
             <div class='row'>
                 <div class="input-field col s6">
-                    <input type="text" id="first_name" class="validate">
+                    <input type="text" name="first_name" id="first_name" class="validate">
                     <label for="first_name">First Name<font color="red">*</font>:</label>
                 </div>
                 <div class="input-field col s6">
                     <!--label for="last_name"  >Last Name:</!--label>
                 <input   type="text" name="last_name" placeholder="Last Name"-->
-                    <input id="last_name" type="text" class="validate">
+                    <input id="last_name" name="last_name" type="text" class="validate">
                     <label for="last_name">Last Name:</label>
                 </div>
                 <div class="input-field col s12">
-                    <input type="number" id="roll_no" class="validate" data-length=10
+                    <input type="number" id="roll_no" name="roll_no" class="validate" data-length=10
                         onkeypress="return isNumberKey(event)"><br>
                     <label for="last_name" >Roll Number<font color="red">*</font>:</label>
                     <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg}}</p>
                 </div>
                 <div class="input-field col s12">
-                    <input type="date" id="dob" id="dob" class="validate" required>
+                    <input type="date" id="dob" name="dob" class="validate" required>
                     <label for="dob"  >Date of Birth<font color="red">*</font>:</label>
+                    
                 </div>
                 <div class="input-field col s12">
-                    <input type="text" id="user_name" class="validate">
+                    <input type="text" id="user_name" name="user_name" class="validate">
                     <label for="user_name"  >User Name<font color="red">*</font>:</label>
                 </div>
                 <div class="input-field col s12">
-                    <input type="email" id="email" class="validate">
+                    <input type="email" id="email" name="email" class="validate">
                     <label for="email"  >Email<font color="red">*</font>:</label>
                     <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg2}}</p>
                 </div>
                 <div class="input-field col s12">
-                    <input type="password" id="password1" class="validate">
+                    <input type="password" id="password1" name="password1" class="validate">
                     <label for="password1"  >Password<font color="red">*</font>:</label>
                 </div>
                 <div class="input-field col s12">
-                    <input type="password" id="password2" class="validate">
+                    <input type="password" id="password2" name="password2" class="validate">
                     <label for="password2"  >Confirm Password<font color="red">*</font>:</label>
                 </div>
             </div>

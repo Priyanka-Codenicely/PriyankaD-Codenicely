@@ -18,8 +18,14 @@ def login(request):
 def register(request):
     return render(request,'blog/signup.html')
 
+
 def home(request):
-    return render(request,'blog/home.html')
+    username = None
+    if 'username' in request.session:
+        username = request.session.get('username')
+        return render(request, 'blog/home.html', context)
+    else:
+        return render(request,'blog/login.html', context)
 
 def OTPpage(request):
     return render(request, 'blog/otp.html') 
@@ -46,17 +52,15 @@ def formSubmit(request):
     context = {}
     print('inside submit api')
     if request.method == 'POST':
-        first_name=request.POST["first_name"]
-        last_name=request.POST["last_name"]
+        first_name=request.POST.get("first_name")
+        last_name=request.POST.get("last_name")
         dob=request.POST.get("dob")
-        """if dob == "dd/mm/yyyy":
-            dob = datetime.datetime.now()"""
         print(dob)
-        roll_no=request.POST["roll_no"]       
-        user_name=request.POST["user_name"]
-        email=request.POST["email"]
+        roll_no=request.POST.get("roll_no")      
+        user_name=request.POST.get("user_name")
+        email=request.POST.get("email")
         email = email.lower()
-        password1=request.POST["password1"]
+        password1=request.POST.get("password1")
         if UserInfo.objects.filter(roll_no=roll_no).exists():
             context['err_msg']='The Roll Number you entered already exists.'
             return render(request,'blog/signup.html',context)
@@ -78,6 +82,7 @@ def formSubmit(request):
             print("mail",to_list)
             send_mail(subject,message,from_email,to_list)
             context['email']=user_info.email
+            request.session['username']=user_info.user_name            
             print('email', context['email'])
             return render(request,'blog/otp.html',context)
 
@@ -96,14 +101,19 @@ def loginForm(request):
         if UserInfo.objects.filter(email=email).exists():
             if UserInfo.objects.filter(email=email,password1=password).exists():
                 print('it')
-                if 'username' in request.session:
-                    username=request.session.get('username')
-                    return render(request,'blog/home.html', context)
+                user = UserInfo.objects.get(email=email,password1=password)
+                if user.user_status_verified:
+                    if 'username' in request.session:
+                        username=request.session.get('username')
+                        return render(request,'blog/home.html', context)
+                    else:
+                        context['name'] = user.user_name
+                        request.session['username']=user.user_name
+                        return render(request,'blog/home.html', context)
                 else:
-                    user = UserInfo.objects.get(email=email,password1=password)
-                    context['name'] = user.user_name
-                    request.session['username']=user.user_name
-                    return render(request,'blog/home.html', context)
+                    context['otpverify'] = "Please verify your identity."
+                    context['email'] = user.email
+                    return render(request,'blog/otp.html',context)
             else:
                 context['err_msg3']="The Password you entered doesn't match with the Email "
                 return render(request, 'blog/login.html',context)
@@ -157,8 +167,8 @@ def SubmitOTP(request):
             status.user_status_verified = True
             status.save()
             context['name']=status.user_name
-            request.session['messages']=status.user_name
-            return render(request,'blog/home.html',context,{'messages': messages})
+            request.session['username']=status.user_name
+            return render(request,'blog/home.html',context)
         else:
             status = UserInfo.objects.get(email=email)
             status.user_status_verified = False
