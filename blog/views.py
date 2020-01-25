@@ -20,6 +20,7 @@ def register(request):
 
 
 def home(request):
+    context = {}
     username = None
     if 'username' in request.session:
         username = request.session.get('username')
@@ -76,7 +77,7 @@ def formSubmit(request):
             """send_mail(subject,message,from_email,to_list, fail_silently=True)
             """   
             subject='OTP'
-            message= '%s is your OTP' %otp
+            message= 'Welcome to Easy Notes Maker, %s is your OTP' %otp
             from_email= settings.EMAIL_HOST_USER
             to_list=[user_info.email]
             print("mail",to_list)
@@ -103,13 +104,12 @@ def loginForm(request):
                 print('it')
                 user = UserInfo.objects.get(email=email,password1=password)
                 if user.user_status_verified:
-                    if 'username' in request.session:
+                    """if 'username' in request.session:
                         username=request.session.get('username')
                         return render(request,'blog/home.html', context)
-                    else:
-                        context['name'] = user.user_name
-                        request.session['username']=user.user_name
-                        return render(request,'blog/home.html', context)
+                    else:"""
+                    request.session['username']=user.user_name
+                    return render(request,'blog/home.html')
                 else:
                     context['otpverify'] = "Please verify your identity."
                     context['email'] = user.email
@@ -126,12 +126,11 @@ def loginForm(request):
 
 
 def logout(request):
+    context = {}
     print('i reached at logout')
-    try:
-        del request.session['username']
-    except:
-        pass
-    return HttpResponse("<strong>You are logged out.</strong>")
+    del request.session['username']
+    context['logout']='Please Log-in to Easy Notes Maker'
+    return render(request,)
 
 def OTPresend(request):
     context = {}
@@ -141,7 +140,7 @@ def OTPresend(request):
         print(email)
         otp = generateOTP()
         subject='OTP Resent'
-        message= '%s is your new OTP' %otp
+        message= 'Welcome to Easy Notes Maker, %s is your new OTP' %otp
         from_email= settings.EMAIL_HOST_USER
         to_list=[email]
         print("mail",to_list)
@@ -198,7 +197,7 @@ def forgotPassword(request):
             user.user_status_verified=False
             user.save()
             subject='OTP for resetting password'
-            message= '%s is your New OTP' %newotp
+            message= 'Welcome to Easy Notes Maker, %s is your New OTP' %newotp
             from_email= settings.EMAIL_HOST_USER
             to_list=[user.email]
             print("mail",to_list)

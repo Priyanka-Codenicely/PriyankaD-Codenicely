@@ -17,9 +17,9 @@
 
     function blankFunction() {
 
-        /*var x = document.getElementsByName("password1")[0].value;
-            alert(x)'''
-      */
+
+        var x = document.getElementById("myBtn").disabled;
+        document.getElementById("demo").innerHTML = x;
 
 
 
@@ -95,13 +95,12 @@
 
 {% block content %}
 
-<div class="form-div">
+<div class="signup-div">
     <div class="z-depth-3"> 
         <div class = "title" align="center">
-        <h2>Welcome to Easy Note Maker</h2>
-        <form name="RegForm" method="post" action='{% url "blog-formSubmit" %}'>
-            
-            <h4 align="center">Registration Page</h4>
+        <h2>Welcome to Easy Notes Maker</h2>
+        <form class="signup-form" name="RegForm" method="post" action='{% url "blog-formSubmit" %}'>
+            <h4 class="signup-h4" align="center">Registration Page</h4>
             <br>
             {% csrf_token %}
             <div class='row'>
@@ -115,13 +114,13 @@
                     <input id="last_name" name="last_name" type="text" class="validate">
                     <label for="last_name">Last Name:</label>
                 </div>
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <input type="number" id="roll_no" name="roll_no" class="validate" data-length=10
                         onkeypress="return isNumberKey(event)"><br>
                     <label for="last_name" >Roll Number<font color="red">*</font>:</label>
                     <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg}}</p>
                 </div>
-                <div class="input-field col s12">
+                <div class="input-field col s6">
                     <input type="date" id="dob" name="dob" class="validate" required>
                     <label for="dob"  >Date of Birth<font color="red">*</font>:</label>
                     

@@ -13,13 +13,12 @@
 
     <nav class="nav-wrapper">
         <div class="col s12">
-          <a href="#" class="brand-logo" >Easy Note Maker </a>
+          <a href="#" class="brand-logo" >Easy Notes Maker </a>
           <a href="#" class="sidenav-trigger" data-target = "mobile-links">
             <i class="material-icons">menu</i>
           </a>
 
           <ul class="right hide-on-med-and-down">
-            <li>Hello {{request.session.username}},Welcome! </li>
             <li><a href="badges.html">About</a></li>
             <li><a href="{% url 'blog-logout' %}">Logout</a></li>
           </ul>
@@ -27,12 +26,12 @@
       </nav>
 
       <ul class="sidenav" id="mobile-links">
-        <li>Hello {{username}},Welcome!</li>
         <li><a href="badges.html">About</a></li>
         <li><a href="{% url 'blog-logout' %}">Logout</a></li>
       </ul>
     <div align="center" class='form-div'>
         <form class="z-depth-3">
+          <p>Hello {{username}},Welcome!</p>
 
             <br><br>
             <div >
