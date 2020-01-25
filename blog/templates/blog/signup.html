@@ -1,6 +1,5 @@
 {% extends "blog/base.html" %}
 {%  block  script %}
-{% load crispy_forms_tags %}
 
 <script>
     window.onload = function setDate() {
@@ -95,60 +94,67 @@
 {% endblock %}
 
 {% block content %}
-<div class="form-div">
-    <div class="z-depth-3">
-    <form name="RegForm" method="post" action='{% url "blog-formSubmit" %}'>
-        <h2 align="center">Registration Page</h2>
-        <br>
-        {% csrf_token %}
-        <div class='row'>
-                <label for="first_name" class="col s6">First Name<font color="red">*</font>:</label>
 
-                <input class="col s6" type="text" name="first_name" placeholder="First Name">
-        </div>
-        <div class='row'>
-            <label for="last_name" class="col s6">Last Name:</label>
-            <input class="col s6" type="text" name="last_name" placeholder="Last Name">
-        </div>
-        <div class='row'>
-            <label for="last_name" class="col s6">Roll Number<font color="red">*</font>:</label>
-            <input class="col s6 text-align:right" type="number" name="roll_no" placeholder="Roll Number"
-                onkeypress="return isNumberKey(event)"><br>
-            <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg}}</p>
-        </div>
-        <div class='row'>
-            <label for="dob" class="col s6">Date of Birth<font color="red">*</font>:</label>
-            <input class="col s6" type="date" name="dob" id="dob" placeholder="Date of Birth"
-                required>
-        </div>
-        <div class='row'>
-            <label for="user_name" class="col s6">User Name<font color="red">*</font>:</label>
-            <input class="col s6" type="text" name="user_name" placeholder="User Name">
-        </div>
-        <div class='row'>
-            <label for="email" class="col s6">Email<font color="red">*</font>:</label>
-            <input class="col s6" type="email" name="email" placeholder="Email">
-            <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg2}}</p>
-        </div>
-        <div class='row'>
-            <label for="password1" class="col s6">Password<font color="red">*</font>:</label>
-            <input class="col s6" type="password" name="password1" placeholder="Password">
-        </div>
-        <div class='row'>
-            <label for="password2" class="col s6">Confirm Password<font color="red">*</font>:</label>
-            <input class="col s6" type="password" name="password2" placeholder="Confirm Password">
-        </div>
-        <div>
-            <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg4}}</p>
-            <div align="center">
-                <input type="submit" class='btn red' value="Sign Up" onclick="return blankFunction()">
+<div class="form-div">
+    <div class="z-depth-3"> 
+        <div class = "title" align="center">
+        <h2>Welcome to Easy Note Maker</h2>
+        <form name="RegForm" method="post" action='{% url "blog-formSubmit" %}'>
+            
+            <h4 align="center">Registration Page</h4>
+            <br>
+            {% csrf_token %}
+            <div class='row'>
+                <div class="input-field col s6">
+                    <input type="text" id="first_name" class="validate">
+                    <label for="first_name">First Name<font color="red">*</font>:</label>
+                </div>
+                <div class="input-field col s6">
+                    <!--label for="last_name"  >Last Name:</!--label>
+                <input   type="text" name="last_name" placeholder="Last Name"-->
+                    <input id="last_name" type="text" class="validate">
+                    <label for="last_name">Last Name:</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="number" id="roll_no" class="validate" data-length=10
+                        onkeypress="return isNumberKey(event)"><br>
+                    <label for="last_name" >Roll Number<font color="red">*</font>:</label>
+                    <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg}}</p>
+                </div>
+                <div class="input-field col s12">
+                    <input type="date" id="dob" id="dob" class="validate" required>
+                    <label for="dob"  >Date of Birth<font color="red">*</font>:</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" id="user_name" class="validate">
+                    <label for="user_name"  >User Name<font color="red">*</font>:</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="email" id="email" class="validate">
+                    <label for="email"  >Email<font color="red">*</font>:</label>
+                    <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg2}}</p>
+                </div>
+                <div class="input-field col s12">
+                    <input type="password" id="password1" class="validate">
+                    <label for="password1"  >Password<font color="red">*</font>:</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="password" id="password2" class="validate">
+                    <label for="password2"  >Confirm Password<font color="red">*</font>:</label>
+                </div>
             </div>
-        </div>
-    </form>
-    <div style="padding-bottom:30px" align="center">
-        <a href='{% url "blog-login" %}'>Already have an account?</a>
-    </div style="padding-bottom:30px">
-</div>
+            <div>
+                <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg4}}</p>
+                <div align="center">
+                    <input type="submit" class='btn red' value="Sign Up" onclick="return blankFunction()">
+                </div>
+            </div>
+        </form>
+        <div style="padding-bottom:30px" align="center">
+            <a href='{% url "blog-login" %}'>Already have an account?</a>
+        </div style="padding-bottom:30px">
+    </div>
     {% endblock %}
+</div>
 </div>
 </div>

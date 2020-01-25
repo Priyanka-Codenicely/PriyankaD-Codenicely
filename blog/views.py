@@ -85,6 +85,7 @@ def formSubmit(request):
 def loginForm(request):
     print('hello mate')
     context = {}
+    username = None
     if request.method == 'POST':
         print("i'm here")
         email=request.POST.get("Email")
@@ -95,9 +96,14 @@ def loginForm(request):
         if UserInfo.objects.filter(email=email).exists():
             if UserInfo.objects.filter(email=email,password1=password).exists():
                 print('it')
-                user = UserInfo.objects.get(email=email,password1=password)
-                context['name'] = user.user_name
-                return render(request,'blog/home.html', context)
+                if 'username' in request.session:
+                    username=request.session.get('username')
+                    return render(request,'blog/home.html', context)
+                else:
+                    user = UserInfo.objects.get(email=email,password1=password)
+                    context['name'] = user.user_name
+                    request.session['username']=user.user_name
+                    return render(request,'blog/home.html', context)
             else:
                 context['err_msg3']="The Password you entered doesn't match with the Email "
                 return render(request, 'blog/login.html',context)
@@ -106,6 +112,16 @@ def loginForm(request):
             return render(request,'blog/signup.html',context)
     else:
         return render(request,'blog/home.html')
+
+
+
+def logout(request):
+    print('i reached at logout')
+    try:
+        del request.session['username']
+    except:
+        pass
+    return HttpResponse("<strong>You are logged out.</strong>")
 
 def OTPresend(request):
     context = {}
@@ -141,7 +157,8 @@ def SubmitOTP(request):
             status.user_status_verified = True
             status.save()
             context['name']=status.user_name
-            return render(request,'blog/home.html',context)
+            request.session['messages']=status.user_name
+            return render(request,'blog/home.html',context,{'messages': messages})
         else:
             status = UserInfo.objects.get(email=email)
             status.user_status_verified = False
@@ -207,3 +224,4 @@ def PasswordReset(request):
             context['email1']=email
             context['password_msg']="The OTP you entered didn't match"
             return render(request, 'blog/passwordReset.html',context)
+

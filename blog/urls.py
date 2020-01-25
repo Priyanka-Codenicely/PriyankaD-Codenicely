@@ -19,5 +19,7 @@ urlpatterns = [
     path('forgotPasswordPage/', views.forgotPasswordPage, name = "blog-forgotPasswordPage"),
     path('PasswordReset/', views.PasswordReset, name = "blog-PasswordReset"),
     path('login/forgotPasswordPage/', views.forgotPasswordPage, name = "blog-forgotPasswordPage"),
-
+    path('PasswordReset/logout/',views.logout, name='blog-logout'),    
+    path('loginForm/logout/',views.logout, name="blog-logout"),
+    path('logout/',views.logout, name="blog-logout"),
 ]
