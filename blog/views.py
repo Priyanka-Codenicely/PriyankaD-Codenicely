@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import UserInfo,StatusManager
+from .models import UserInfo, Note
 from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from django.conf import settings
@@ -18,6 +18,23 @@ def login(request):
 def register(request):
     return render(request,'blog/signup.html')
 
+def deleteNote(request):
+    print('Im at delete note')
+    if request.method == 'POST':
+        noteId = request.POST.get('noteId')
+        print('noteId', noteId)
+        del Note.objects['noteId']
+    return render(request, 'blog/displayNote.html')
+
+def displayNote(request):
+    context = {}
+    print('hey displayNote')
+    user = UserInfo.objects.get(user_name=request.session['username'])
+    rollno = user.roll_no
+    print(rollno)
+    notes = Note.objects.filter(userid=rollno)
+
+    return render(request, 'blog/displayNote.html',{'notes':notes}, context)
 
 def home(request):
     context = {}
@@ -26,6 +43,7 @@ def home(request):
         username = request.session.get('username')
         return render(request, 'blog/home.html', context)
     else:
+        context['login']='Please Login'
         return render(request,'blog/login.html', context)
 
 def OTPpage(request):
@@ -41,9 +59,6 @@ def generateOTP() :
         otp += digits[math.floor(random.random() * 10)] 
     return otp 
   
-
-def log_in(request):
-    return redirect('blog/login.html')
 
 def signup(request):
     response = redirect('blog/signup.html')
@@ -67,6 +82,9 @@ def formSubmit(request):
             return render(request,'blog/signup.html',context)
         elif UserInfo.objects.filter(email=email).exists():
             context['err_msg2']='The Email id you entered already exists.'
+            return render(request,'blog/signup.html',context)
+        elif UserInfo.objects.filter(user_name=user_name).exists():
+            context['err_msg2']='The User Name you entered already exists.'
             return render(request,'blog/signup.html',context)
         else:
             otp = generateOTP()
@@ -234,3 +252,22 @@ def PasswordReset(request):
             context['password_msg']="The OTP you entered didn't match"
             return render(request, 'blog/passwordReset.html',context)
 
+def addNote(request):
+    return render(request, 'blog/addNote.html')
+
+def storeNote(request):
+    print('I entered storenote')
+    context={}
+    if request.method=='POST':
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        time = request.POST.get('time')
+        print('time',time)
+        print('Im in store notes')
+        userid =  UserInfo.objects.get(user_name=request.session['username'])
+        note = Note(title=title, description=description, time=time, userid=userid)
+        note.save()
+        print(note)
+        context['saved'] = 'Note Saved'
+        print('im at the bottom')
+    return render(request,'blog/home.html',context)

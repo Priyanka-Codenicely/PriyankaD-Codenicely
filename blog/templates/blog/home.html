@@ -6,7 +6,7 @@
     console.log("inside navbar script")
     $('.sidenav').sidenav();
   });
-  </script>
+</script>
 
 {% endblock %}
 {%  block  content %}
@@ -19,6 +19,7 @@
           </a>
 
           <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'blog-displayNote' %}"><i class="material-icons">note</i></a></li>
             <li><a href="badges.html">About</a></li>
             <li><a href="{% url 'blog-logout' %}">Logout</a></li>
           </ul>
@@ -31,11 +32,12 @@
       </ul>
     <div align="center" class='form-div'>
         <form class="z-depth-3">
-          <p>Hello {{username}},Welcome!</p>
-
+          <p>{{saved}}</p>
+          <p>Hello {{request.session.username}},Welcome!</p>
+          <p>{{login}}</p>
             <br><br>
             <div >
-                <a class="btn-floating btn-large cyan"><i class="material-icons">edit</i></a>
+                <a href="{% url 'blog-addNote' %}" class="btn-floating btn-large cyan"><i class="material-icons">note_add</i></a>
             </div>
         </form>
     </div>

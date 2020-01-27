@@ -22,4 +22,9 @@ urlpatterns = [
     path('PasswordReset/logout/',views.logout, name='blog-logout'),    
     path('loginForm/logout/',views.logout, name="blog-logout"),
     path('logout/',views.logout, name="blog-logout"),
+    path('addNote/', views.addNote, name="blog-addNote"),
+    path('storeNote/', views.storeNote, name="blog-storeNote"),
+    path('displayNote/', views.displayNote, name="blog-displayNote"),
+    path('deleteNote/', views.deleteNote, name="blog-deleteNote"),
+
 ]

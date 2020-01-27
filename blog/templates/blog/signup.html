@@ -18,7 +18,7 @@
     function blankFunction() {
 
 
-      
+
 
         var first_name = document.forms["RegForm"]["first_name"];
         var last_name = document.forms["RegForm"]["last_name"];
@@ -72,86 +72,72 @@
 </script>
 
 
-<style>
-    .button {
-        border: none;
-        color: white;
-        padding: 10px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        width: 150px;
-        height: 50px;
-        background-color: tomato;
-    }
-</style>
+
 {% endblock %}
 
 {% block content %}
 
 <div class="signup-div">
-    <div class="z-depth-3"> 
-        <div class = "title" align="center">
-        <h2>Welcome to Easy Notes Maker</h2>
-        <form class="signup-form" name="RegForm" method="post" action='{% url "blog-formSubmit" %}'>
-            <h4 class="signup-h4" align="center">Registration Page</h4>
-            <br>
-            {% csrf_token %}
-            <div class='row'>
-                <div class="input-field col s6">
-                    <input type="text" name="first_name" id="first_name" class="validate">
-                    <label for="first_name">First Name<font color="red">*</font>:</label>
-                </div>
-                <div class="input-field col s6">
-                    <!--label for="last_name"  >Last Name:</!--label>
+    <div class="z-depth-3">
+        <div class="title" align="center">
+            <h2>Welcome to Easy Notes Maker</h2>
+            <form class="signup-form" name="RegForm" method="post" action='{% url "blog-formSubmit" %}'>
+                <h4 class="signup-h4" align="center">Registration Page</h4>
+                <br>
+                {% csrf_token %}
+                <div class='row'>
+                    <div class="input-field col s6">
+                        <input type="text" name="first_name" id="first_name" class="validate">
+                        <label for="first_name">First Name<font color="red">*</font>:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <!--label for="last_name"  >Last Name:</!--label>
                 <input   type="text" name="last_name" placeholder="Last Name"-->
-                    <input id="last_name" name="last_name" type="text" class="validate">
-                    <label for="last_name">Last Name:</label>
+                        <input id="last_name" name="last_name" type="text" class="validate">
+                        <label for="last_name">Last Name:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="number" id="roll_no" name="roll_no" class="validate" data-length=10
+                            onkeypress="return isNumberKey(event)"><br>
+                        <label for="last_name">Roll Number<font color="red">*</font>:</label>
+                        <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg}}</p>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="date" id="dob" name="dob" class="validate" required>
+                        <label for="dob">Date of Birth<font color="red">*</font>:</label>
+
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="text" id="user_name" name="user_name" class="validate">
+                        <label for="user_name">User Name<font color="red">*</font>:</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="email" id="email" name="email" class="validate">
+                        <label for="email">Email<font color="red">*</font>:</label>
+                        <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg2}}</p>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="password" id="password1" name="password1" class="validate">
+                        <label for="password1">Password<font color="red">*</font>:</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input type="password" id="password2" name="password2" class="validate">
+                        <label for="password2">Confirm Password<font color="red">*</font>:</label>
+                    </div>
                 </div>
-                <div class="input-field col s6">
-                    <input type="number" id="roll_no" name="roll_no" class="validate" data-length=10
-                        onkeypress="return isNumberKey(event)"><br>
-                    <label for="last_name" >Roll Number<font color="red">*</font>:</label>
-                    <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg}}</p>
+                <div>
+                    <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg4}}</p>
+                    <div align="center">
+                        <input type="submit" class='btn red' value="Sign Up" onclick="return blankFunction()">
+                    </div>
                 </div>
-                <div class="input-field col s6">
-                    <input type="date" id="dob" name="dob" class="validate" required>
-                    <label for="dob"  >Date of Birth<font color="red">*</font>:</label>
-                    
-                </div>
-                <div class="input-field col s12">
-                    <input type="text" id="user_name" name="user_name" class="validate">
-                    <label for="user_name"  >User Name<font color="red">*</font>:</label>
-                </div>
-                <div class="input-field col s12">
-                    <input type="email" id="email" name="email" class="validate">
-                    <label for="email">Email<font color="red">*</font>:</label>
-                    <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg2}}</p>
-                </div>
-                <div class="input-field col s12">
-                    <input type="password" id="password1" name="password1" class="validate">
-                    <label for="password1"  >Password<font color="red">*</font>:</label>
-                </div>
-                <div class="input-field col s12">
-                    <input type="password" id="password2" name="password2" class="validate">
-                    <label for="password2"  >Confirm Password<font color="red">*</font>:</label>
-                </div>
-            </div>
-            <div>
-                <p style="font-size:13px;color:rgb(177, 8, 8)"> {{err_msg4}}</p>
-                <div align="center">
-                    <input type="submit" class='btn red' value="Sign Up" onclick="return blankFunction()">
-                </div>
-            </div>
-        </form>
-        <div style="padding-bottom:30px" align="center">
-            <a href='{% url "blog-login" %}'>Already have an account?</a>
-        </div style="padding-bottom:30px">
+            </form>
+            <div style="padding-bottom:30px" align="center">
+                <a href='{% url "blog-login" %}'>Already have an account?</a>
+            </div style="padding-bottom:30px">
+        </div>
+
     </div>
-    {% endblock %}
 </div>
 </div>
-</div>
+{% endblock %}
