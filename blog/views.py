@@ -21,27 +21,23 @@ def register(request):
 def deleteNote(request):
     print('Im at delete note')
     if request.method == 'POST':
-        noteId = request.POST.get('noteId')
-        print('noteId', noteId)
-        del Note.objects['noteId']
-    return render(request, 'blog/displayNote.html')
+        noteid = request.POST.get('noteid')
+        print('noteId', noteid)
+        del Note.objects['noteid']
+    return render(request, 'blog/home.html')
 
-def displayNote(request):
-    context = {}
-    print('hey displayNote')
-    user = UserInfo.objects.get(user_name=request.session['username'])
-    rollno = user.roll_no
-    print(rollno)
-    notes = Note.objects.filter(userid=rollno)
-
-    return render(request, 'blog/displayNote.html',{'notes':notes}, context)
 
 def home(request):
     context = {}
-    username = None
     if 'username' in request.session:
         username = request.session.get('username')
-        return render(request, 'blog/home.html', context)
+        user = UserInfo.objects.get(user_name=username)
+        rollno = user.roll_no
+        print(rollno)
+        '''print(user.id)'''
+        notes = Note.objects.filter(userid=rollno)
+        return render(request, 'blog/home.html', {'notes':notes} ,context)
+
     else:
         context['login']='Please Login'
         return render(request,'blog/login.html', context)
@@ -148,7 +144,7 @@ def logout(request):
     print('i reached at logout')
     del request.session['username']
     context['logout']='Please Log-in to Easy Notes Maker'
-    return render(request,)
+    return render(request,'blog/login.html')
 
 def OTPresend(request):
     context = {}
@@ -179,12 +175,14 @@ def SubmitOTP(request):
         email = email.lower()
         print(email)
         if UserInfo.objects.filter(email=email,otp=otp).exists():
-            print('this exists')
+            print('SubmitOTP exists')
             status = UserInfo.objects.get(email=email,otp=otp)
             status.user_status_verified = True
             status.save()
             context['name']=status.user_name
             request.session['username']=status.user_name
+            print('name',context['name'])
+            print('name',request.session['username'])
             return render(request,'blog/home.html',context)
         else:
             status = UserInfo.objects.get(email=email)
@@ -239,14 +237,22 @@ def PasswordReset(request):
         print(newotp)
         password1 = request.POST.get('password1')
         if UserInfo.objects.filter(email=email,otp=newotp).exists():
-            print('this exists')
+            print('PasswordReset exists')
             user = UserInfo.objects.get(email=email)
             user.user_status_verified= True
             user.save()
             user.password1 = password1
             user.save()
             context['name'] = user.user_name
-            return render(request,'blog/home.html',context )
+            request.session['username']=user.user_name
+            print('name',context['name'])
+            print('name',request.session['username'])
+            print('hey displayNote')
+            user = UserInfo.objects.get(user_name=request.session['username'])
+            rollno = user.roll_no
+            print(rollno)
+            notes = Note.objects.filter(userid=rollno)
+            return render(request,'blog/home.html',{'notes':notes},context )
         else:
             context['email1']=email
             context['password_msg']="The OTP you entered didn't match"
@@ -261,13 +267,22 @@ def storeNote(request):
     if request.method=='POST':
         title = request.POST.get('title')
         description = request.POST.get('description')
-        time = request.POST.get('time')
-        print('time',time)
+        datetime = request.POST.get('datetime')
+        print('datetime',datetime)
         print('Im in store notes')
         userid =  UserInfo.objects.get(user_name=request.session['username'])
-        note = Note(title=title, description=description, time=time, userid=userid)
+        note = Note(title=title, description=description, datetime=datetime, userid=userid)
         note.save()
         print(note)
         context['saved'] = 'Note Saved'
         print('im at the bottom')
-    return render(request,'blog/home.html',context)
+        print('hey displayNote')
+        user = UserInfo.objects.get(user_name=request.session['username'])
+        rollno = user.roll_no
+        print(rollno)
+        notes = Note.objects.filter(userid=rollno)
+    return render(request, 'blog/home.html',{'notes':notes},context)
+
+def updateContent(request):
+    return render(request, 'blog/home.html,')
+

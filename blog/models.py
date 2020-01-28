@@ -24,5 +24,5 @@ class Note(models.Model):
     noteId = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=2000,blank=True)
-    time = models.DateTimeField(null=False, default = timezone.now())
+    datetime = models.DateTimeField(null=False,auto_now_add=True)
     userid = models.ForeignKey(UserInfo, on_delete=models.CASCADE)

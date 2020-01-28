@@ -142,9 +142,9 @@ MESSAGE_TAGS = {
 }
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER='priyankadodeja18@gmail.com'
-EMAIL_HOST_PASSWORD='Priyanka@18&'
+EMAIL_HOST = 'smtp.zoho.com'
+EMAIL_HOST_USER='priyanka.dodeja@codenicely.in'
+EMAIL_HOST_PASSWORD='priyanka@18'
 EMAIL_PORT = 587
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

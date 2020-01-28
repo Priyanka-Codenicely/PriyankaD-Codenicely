@@ -8,7 +8,7 @@ class AdminUserInfo(admin.ModelAdmin):
 
 class AdminNotes(admin.ModelAdmin):
     model = Note
-    NoteList = ('noteId','title', 'description','time', 'userid')
+    list_display = ['noteId','title', 'description','datetime', 'userid']
 
 
 admin.site.register(UserInfo)
