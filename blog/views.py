@@ -18,23 +18,15 @@ def login(request):
 def register(request):
     return render(request,'blog/signup.html')
 
-def deleteNote(request):
-    print('Im at delete note')
-    if request.method == 'POST':
-        noteid = request.POST.get('noteid')
-        print('noteId', noteid)
-        del Note.objects['noteid']
-    return render(request, 'blog/home.html')
-
 
 def home(request):
     context = {}
     if 'username' in request.session:
         username = request.session.get('username')
         user = UserInfo.objects.get(user_name=username)
+        print('hey displayNote')
         rollno = user.roll_no
         print(rollno)
-        '''print(user.id)'''
         notes = Note.objects.filter(userid=rollno)
         return render(request, 'blog/home.html', {'notes':notes} ,context)
 
@@ -276,13 +268,45 @@ def storeNote(request):
         print(note)
         context['saved'] = 'Note Saved'
         print('im at the bottom')
-        print('hey displayNote')
+        print('hey displayNote inside storeNote')
         user = UserInfo.objects.get(user_name=request.session['username'])
         rollno = user.roll_no
         print(rollno)
         notes = Note.objects.filter(userid=rollno)
-    return render(request, 'blog/home.html',{'notes':notes},context)
+        return render(request, 'blog/home.html',{'notes':notes},context)
 
-def updateContent(request):
-    return render(request, 'blog/home.html,')
+def EditNote(request,id):
+    print('id', id)
+    print(request.body)
+    print('inside editresponse')
+    if request.method=='GET':
+        print('inside if condition')
+        note = Note.objects.get(noteId=id)
+        print('got instance',note)
+        # note.title = request.GET.get('edittitle')
+        title = request.GET.get('edit_title')
+        print('1',title)
+        note.save()
+        print('2')
+        note.description = request.GET.get('editdescription')
+        print('3')
+        note.save()
+        print('4')
+        user = UserInfo.objects.get(user_name=request.session['username'])
+        print('5')
+        rollno = user.roll_no
+        print(rollno,rollno)
+        notes = Note.objects.filter(userid=rollno)
+        return render(request, 'blog/home.html',{'notes':notes})
+
+def deleteNote(request,id):
+    print('id', id)
+    print('Im at delete note')
+    obj = Note.objects.get(noteId=id)
+    print('inside if condition')
+    obj.delete()
+    user = UserInfo.objects.get(user_name=request.session['username'])
+    rollno = user.roll_no
+    notes = Note.objects.filter(userid=rollno)
+    return render(request, 'blog/home.html',{'notes':notes})
 

@@ -4,20 +4,43 @@
 {% block script %}
 <script>
   window.onload = function setDate() {
-        document.getElementById("datetime").valueAsDate = new Date();
-    };
+    document.getElementById("datetime").valueAsDate = new Date();
+  };
 
+</script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.modal').modal();
+  });
 
- 
 
   $(document).ready(function () {
     console.log("inside navbar script")
     $('.sidenav').sidenav();
   });
-</script>
 
+  $(document).ready(function () {
+    $('input#title, input#description').characterCounter();
+  });
+
+
+  function blankFunction() {
+    var title = document.forms["addNote"]["title"];
+
+    if (title.value == '') {
+      window.alert("Title field can't be left blank");
+      title.focus();
+      return false;
+    }
+
+
+    return true;
+  }
+
+</script>
 {% endblock %}
 {%  block  content %}
+
 
 <nav class="nav-wrapper">
   <div class="col s12">
@@ -27,7 +50,9 @@
     </a>
 
     <ul class="right hide-on-med-and-down">
-      <li><a href="{% url 'blog-addNote' %}"><i class="material-icons">note_add</i></a></li>
+      <li>
+        <!-- Modal Trigger -->
+        <a href="#modal1" class="modal-trigger"><i class="material-icons">note_add</i></a></li>
       <li><a href="badges.html">About</a></li>
       <li><a href="{% url 'blog-logout' %}">Logout</a></li>
     </ul>
@@ -35,46 +60,115 @@
 </nav>
 
 <ul class="sidenav" id="mobile-links">
+  <li><a href="#modal1" class="modal-trigger">Add Note</a></li>
   <li><a href="badges.html">About</a></li>
   <li><a href="{% url 'blog-logout' %}">Logout</a></li>
 </ul>
 
 
 
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <nav style="padding: 01px;" class="nav-wrapper">
+    <h5 align="center">Add your Note here</h5><br>
+  </nav>
+  <form method="POST" action="{% url 'blog-storeNote' %}" name="addNote">
+    {% csrf_token %}
+    <div class="modal-content">
+      <div class="input-field-addnote">
+        <label for="title">Title<font color="red">*</font>:</label>
+        <input type="text" name="title" id="title" class="validate" data-length="120">
+      </div>
+      <div class="input-field-addnote">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" class="description-box" data-length="2000"><br><br>
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'blog-home' %}" class="modal-close waves-effect waves-red btn-flat">Cancel</a>
+        <input type="submit" class="modal-close waves-effect waves-green btn-flat" value="Save"
+          onclick="return blankFunction()">
+      </div>
+    </div>
+  </form>
+</div>
+
+
+
+
 
 
 <div align="center" class='body-home'>
-  <form class='form-home'>
+  <form method='POST' class='form-home'>
     <p>{{saved}}</p>
     <p>Welcome {{request.session.username}}!</p>
     <p>{{login}}</p>
     {% if notes %}
     <ol>
-    <table>
-      <tr>
-        <th>Sr no.</th>
-        <th>Date-Time</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Actions</th>
-      </tr>
-      <tr>
-      {% for note in notes %}
-      <td><li></li></td>
-      <td> {{note.datetime}} </td>
-      <td> {{note.title}} </td>
-      <td> {{note.description}} </td>
-      <td><a href="#" class="btn-floating"><i class="material-icons orange">edit</i></a>
-      <a href='{% url "blog-deleteNote" %}' class="btn-floating"><i class="material-icons red">delete</i></a></td>
-      <input type="hidden" name="note" id="note" value={{noteId}} readonly>
-      <input class="input-center" type="hidden" name = 'noteid' value="{{noteid}}" readonly>  </input>
+      <table>
+        <tr>
+          <th>Sr no.</th>
+          <th>Date-Time</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+        <tr>
+          {% for note in notes reversed %}
+          <td>
+            <li></li>
+          </td>
+          <td> {{note.datetime}} </td>
+          <td> {{note.title}} </td>
+          <td> {{note.description}} </td>
+          <td><a href="#modal2" class="modal-trigger btn-floating"><i class="material-icons orange">edit</i></a>
+            <!-- Modal Structure -->
+            <div id="modal2" class="modal">
+              <nav style="padding: 01px;" class="nav-wrapper">
+                <h5 align="center">Edit your Note here</h5><br>
+              </nav>
+              <form class="form-modal" method="GET" action="{% url 'blog-EditNote' id=note.pk %}" name="editNote">
+                {% csrf_token %}
+                <div class="form-modal">
+                  <div class="input-field-addnote">
+                    <input type="date" id='datetime' name="datetime" required>
+                    <label for="edittitle">Title<font color="red">*</font>:</label>
+                    <input type="text" name="edit_title" id="edittitle" class="validate" value="{{note.title}}"
+                      data-length="120">
+                  </div>
+                  <div class="input-field-addnote">
+                    <label for="editdescription">Description</label>
+                    <input type="text" name="editdescription" id="editdescription" class="description-box"
+                      value="{{note.description}}" data-length="2000"><br><br>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="{% url 'blog-home' %}" class="modal-close waves-effect waves-red btn-flat">Discard</a>
+                    <a href="{% url 'blog-EditNote' id=note.pk %}"
+                      class="modal-close waves-effect waves-green btn-flat">Save Changes</a>
+                  </div>
+                </div>
+              </form>
+            </div>
 
-    </tr>
-      {% endfor %}
-    </table>
+            <a href='#modal3' class="modal-trigger btn-floating"><i class="material-icons red">delete</i></a>
+
+            <div id="modal3" class="modal">
+              <div class="modal-content">
+                <h5 align="center">Are you sure you want to delete this Note?</h5><br>
+                {% csrf_token %}
+              </div>
+              <div class="modal-footer">
+                <a href="{% url 'blog-home' %}" class="modal-close waves-effect waves-red btn-flat">Cancel</a>
+                <a href="{% url 'blog-deleteNote' id=note.pk %}"
+                  class="modal-close waves-effect waves-red btn-flat">Delete</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
     </ol>
     {% endif %}
-  </form>
+  </form action='POST'>
 </div>
 
 <!-- Optional JavaScript -->

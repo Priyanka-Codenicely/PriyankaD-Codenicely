@@ -24,7 +24,9 @@ urlpatterns = [
     path('logout/',views.logout, name="blog-logout"),
     path('addNote/', views.addNote, name="blog-addNote"),
     path('storeNote/', views.storeNote, name="blog-storeNote"),
-    path('deleteNote/', views.deleteNote, name="blog-deleteNote"),
+    path('deleteNote/<int:id>/', views.deleteNote, name="blog-deleteNote"),
+    # path('EditNote/<int:id>/', views.EditNote, name="blog-deleteNote"),
+    path('EditNote/<int:id>/', views.EditNote, name="blog-EditNote"),
     path('home/forgotPasswordPage/', views.forgotPasswordPage, name = "blog-forgotPasswordPage"),
 
 ]
